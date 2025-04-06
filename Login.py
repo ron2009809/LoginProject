@@ -1,0 +1,140 @@
+from flask import Flask, render_template, request
+from flask_mail import Mail, Message
+import psycopg2
+import random
+
+DB_NAME = "ExerciseDatabase"
+DB_USER = "postgres"
+DB_PASS = "royron310809"
+DB_HOST = "localhost"
+DB_PORT = "5432"
+
+try:
+    conn = psycopg2.connect(database=DB_NAME,
+                            user=DB_USER,
+                            password=DB_PASS,
+                            host=DB_HOST,
+                            port=DB_PORT)
+    print("Database connected successfully")
+    cur = conn.cursor()
+    cur.execute("""
+    SELECT * FROM user_table;
+    """)
+    # Fetch all rows from the executed query
+    rows = cur.fetchall()
+    # print(rows)
+    for row in rows:
+        print(row)
+    # conn.commit()
+except psycopg2.Error as e:
+    print("Databse not connected successfully")
+    print("Error details:", e)
+
+app = Flask(__name__)
+
+app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = "roncui2009809@gmail.com"
+app.config['MAIL_PASSWORD'] = "qozwszhlehkpmjfv"
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+verification_code_sent_by_email = str(random.randint(100000, 999999))
+
+@app.route("/send_email")
+def index():
+    mail_message = Message(
+        'Verification Code For Changing Password',
+        sender = 'roncui2009809@gmail.com',
+        recipients = ['roncui2009809@gmail.com'])
+    mail_message.body = verification_code_sent_by_email
+    mail.send(mail_message)
+    print(verification_code_sent_by_email)
+    return render_template('verificationcodeconfirm.html')
+
+@app.route("/verify_verification_code")
+def verify_verification_code():
+    verification_code = request.args.get('confirming_verification_code_for_python')
+    if verification_code == verification_code_sent_by_email:
+        return render_template('codeverifiedsuccessfully.html')
+    else:
+        return render_template('codeverifiedunsuccessfully.html')
+
+@app.route("/New_password_created_sucessfully")
+def New_password_created_sucessfully():
+    NewPassword = request.args.get('new_password_for_python')
+    NewPasswordConfirm = request.args.get('new_password_confirm_for_python')
+    if NewPassword == NewPasswordConfirm:
+        return render_template('newpasswordcreatedsuccessfully.html')
+    else:
+        return render_template('failedtoconfirmpassword.html')
+
+@app.route("/code_verified_unsuccessfully")
+def code_verified_unsuccessfully():
+    return render_template('verificationcodeconfirm.html')
+# //
+@app.route("/verify_password_unsuccessfully")
+def verify_password_unsuccessfully():
+    return render_template('codeverifiedsuccessfully.html')
+# //
+@app.route('/')
+def loginPage():
+    return render_template('loginpage.html')
+
+@app.route('/checkUsernameExistOrNot')
+def checkUsernameExistOrNot():
+    username = request.args.get('username_for_python')
+    password = request.args.get('password_for_python')
+    action = request.args.get('forgot_password_action')
+    if action == 'Forgot_Password?':
+        return render_template('forgotpassword.html')
+    cur.execute("SELECT * FROM user_table WHERE user_name = %s", (username,))
+    result = cur.fetchall()
+    conn.commit()
+    if len(result) > 0:
+        cur.execute("SELECT password FROM user_table WHERE user_name = %s", (username,))
+        database_password = cur.fetchone()
+        if password == database_password[0]:
+            return "<h1>Login Successfully</h1>"
+        else:
+            return render_template('reenterpasswordloginpage.html')
+    else:
+        return render_template('checkUsernameExistOrNot.html')
+
+@app.route('/signUp')
+def signUp():
+    action = request.args.get('user_action')
+    if action == 'tryAgain':
+        return render_template('loginpage.html')
+    else:
+        return render_template('signuppage.html')
+
+@app.route('/PasswordConfirm')
+def PasswordConfirm():
+    username = request.args.get('signUp_username_for_python')
+    cur.execute("SELECT user_name from user_table")
+    database_usernames = cur.fetchall()
+    print(database_usernames)
+    for string in database_usernames:
+        t = "".join(string)
+        print(username)
+        # print(database_usernames)
+        # print(t)
+        if username == t:
+            return render_template('usernamecheckforsignup.html')
+    password1 = request.args.get('signUp_password1_for_python')
+    password2 = request.args.get('signUp_password2_for_python')
+    email = request.args.get('signUp_email_for_python')
+    # action = request.args.get('CreateAccount')
+    if password1 == password2:
+        cur.execute("INSERT into user_table (user_name, password, email) values (%s, %s, %s)", (username, password2, email))
+        conn.commit()
+        cur.execute("SELECT * FROM user_table")
+        cur.fetchall()
+        return render_template('accountcreatedsuccessfully.html')
+    else:
+        return "Failed To Confirm The Password, Please Enter The Password Again"
+
+if __name__ == '__main__':
+    app.run(debug=True)

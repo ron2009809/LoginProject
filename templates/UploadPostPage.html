@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Post</title>
+</head>
+<body>
+    <form action="/PostUploadSuccessfully" id="Upload_post_info" name="Upload_post_info_for_python">
+    <h1 class="title">Upload Your New Post!</h1>
+    <p>Post Title: <input type="text" id="post_title" name="post_title_for_python" required></p>
+    <p>Post Information: <input type="text" id="post_info" name="post_info_for_python" required></p>
+    <p>Tag(s) For Post: <input type="text" id="post_tag" name="post_tag_for_python" required></p>
+    <p>Upload Date: <input type="text" id="post_date" name="post_date_for_python" required></p>
+    <button type="submit" value="Uploadpost" name="Uploadpost_action">Upload Post</button>
+    </form>
+    <script>
+        function UploadPost(event) {
+            event.preventDefault();
+            const PostUpload = document.getElementById("Post_Upload");
+            console.log("Upload Post:", PostUpload);
+            const table = PostUpload.value;
+            console.log("Show Uploaded Post:", table);
+
+            if (table) {
+                localStorage.setItem("post", table);
+                console.log("Uploaded Posts:", table);
+            }
+
+            event.target.submit();
+        }
+    </script>
+</body>
+</html>

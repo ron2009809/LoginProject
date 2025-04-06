@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Login Page</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/checkUsernameExistOrNot" method="GET" onsubmit="storeUsername(event)">
+        <label for="user_input_username">Username: (try with your own name)</label>
+        <input type="text" id="user_input_username" name="username_for_python" required>
+        <br><br>
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password_for_python" required>
+        <br><br>
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email_for_python" required>
+        <br><br>
+        <button type="submit" value="login">LOGIN</button>
+    </form>
+    <p>OR</p>
+    <form action="/checkUsernameExistOrNot">
+        <button type="submit" value="Forgot_Password?" name="forgot_password_action">Forgot Password?</button>
+    </form>
+    <script>
+        function storeUsername(event) {
+            event.preventDefault();
+            const usernameInput = document.getElementById("user_input_username");
+            console.log("Username Input Element:", usernameInput);
+            const username = usernameInput.value;
+            console.log("Extracted Username:", username);
+
+            if (username) {
+                localStorage.setItem("username", username);
+                console.log("Username stored in LocalStorage:", username);
+            }
+
+            event.target.submit();
+        }
+    </script>
+</body>
+</html>

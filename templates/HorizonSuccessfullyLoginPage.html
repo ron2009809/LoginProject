@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Login Page</title>
+    <style>
+        .button{
+            background-color: skyblue;
+            display: inline-block;
+            border-radius: 20px;
+            border: 3px solid black;
+            padding: 10px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 300px;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .posts_table {
+            border: 2px double;
+        }
+        .posts_details{
+            border: 2px double;
+        }
+    </style>
+</head>
+<body>
+
+<div class="row">
+    <div class="column">
+        <h1>Welcome</h1>
+        <h1 id="username-display"></h1>
+<!--        <form action="PasswordConfirm">-->
+            <p id="ipAddress-display">IP: {{ ip_address }}</p>
+<!--        </form>-->
+
+        <form method="PUT" action="/UploadPost">
+            <button class="button" type="submit" value="UploadPost" name="UploadPost_action"> Upload A New Post</button>
+        </form>
+        <br><br>
+        <form method="GET" action="/SearchPost">
+            <button class="button" type="submit" value="SearchPost" name="SearchPost_action"> Search For A Post</button>
+        </form>
+        <br><br>
+        <form method="DELETE" action="/DeletePost">
+            <button class="button" type="submit" value="DeletePost" name="DeletePost_action"> Delete A Post</button>
+        </form>
+        <br><br>
+        <form method="PUT" action="/UpdatePost">
+            <button class="button" type="submit" value="UpdatePost" name="UpdatePost_action"> Update For A Post</button>
+        </form>
+    </div>
+    <div class="column">
+        <table class="posts_table">
+            <tbody>
+            {% for row in posts %}
+            <tr class="posts_table">
+                {% for cell in row %}
+                <td><br>{{ cell }}&nbsp;&nbsp;&nbsp;<hr>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var user_input_username = localStorage.getItem("username")
+    console.log(user_input_username)
+    const username = localStorage.getItem('username');
+    document.getElementById('username-display').textContent = username;
+
+    var Upload_post_info = localStorage.getItem("post")
+    console.log(Upload_post_info)
+    const post = localStorage.getItem('post');
+    document.getElementByID('post-display').textContent = post;
+
+    var user_ip_info = localStorage.getItem("ip")
+    console.log(user_ip_info)
+    const ip = localStorage.getItem('ip');
+    document.getElementByID('ipAddress-display').textContent = ip;
+</script>
+
+</body>
+</html>
