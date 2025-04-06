@@ -1,7 +1,8 @@
+import random
+
+import psycopg2
 from flask import Flask, render_template, request
 from flask_mail import Mail, Message
-import psycopg2
-import random
 
 DB_NAME = "TwitterAppDataBase"
 DB_USER = "postgres"
