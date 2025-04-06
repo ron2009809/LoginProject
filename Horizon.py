@@ -4,10 +4,10 @@ import psycopg2
 from flask import Flask, render_template, request
 from flask_mail import Mail, Message
 
-DB_NAME = "TwitterAppDataBase"
-DB_USER = "postgres"
-DB_PASS = "royron310809"
-DB_HOST = "localhost"
+DB_NAME = "loginprojectdatabase"
+DB_USER = "loginprojectdatabase_user"
+DB_PASS = "e7NF4LpzjGUbA3u5aURvb3GEU2jz727P"
+DB_HOST = "dpg-cvovtik9c44c73bs0ucg-a"
 DB_PORT = "5432"
 
 try:
