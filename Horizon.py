@@ -1,7 +1,7 @@
 import random
 
 import psycopg2
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 
 DB_NAME = "loginprojectdatabase"
@@ -191,6 +191,12 @@ def whatsMyIP():
         return result
     print(request.remote_addr)
     return request.remote_addr
+
+
+
+@app.route('/hello', methods=['GET'])
+def say_hello():
+    return jsonify({'message': 'Hello, world!'})
 
 if __name__ == '__main__':
     app.run(debug=True)
