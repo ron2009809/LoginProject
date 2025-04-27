@@ -1,6 +1,6 @@
 import os
 import random
-import CORS
+from flask_cors import CORS
 
 import psycopg2
 from flask import Flask, render_template, request, jsonify
