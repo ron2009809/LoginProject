@@ -1,5 +1,6 @@
 import os
 import random
+from flask_cors import CORS
 
 import psycopg2
 from flask import Flask, render_template, request, jsonify
@@ -33,7 +34,7 @@ except psycopg2.Error as e:
     print("Error details:", e)
 
 app = Flask(__name__)
-
+CORS(app)
 app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = "roncui2009809@gmail.com"
