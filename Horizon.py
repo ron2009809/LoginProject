@@ -198,7 +198,7 @@ def whatsMyIP():
 
 @app.route('/hello', methods=['GET'])
 def say_hello():
-    return jsonify({'message': 'Hello, world!'})
+    return render_template('HorizonHomePage.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
