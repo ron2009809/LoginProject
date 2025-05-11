@@ -174,18 +174,19 @@ def PostUploadSuccessfully():
         return render_template('HorizonSuccessfullyLoginPage.html', posts = result)
     return table
 
-@app.route('/SearchPostInfo')
-def SearchPostInfo():
-    post_title_search = request.args.get('post_title_for_search_for_python')
-    post_tag_search = request.args.get('post_tag_for_search_for_python')
-    if action == 'Searchpost':
-        cur.execute("SELECT * FROM upload_post WHERE post_title = %s", (post_title_search,))
-        result = cur.fetchall()
-        conn.commit()
+# @app.route('/SearchPostInfo')
+# def SearchPostInfo():
+#     post_title_search = request.args.get('post_title_for_search_for_python')
+#     post_tag_search = request.args.get('post_tag_for_search_for_python')
+#     if action == 'Searchpost':
+#         cur.execute("SELECT * FROM upload_post WHERE post_title = %s", (post_title_search,))
+#         result = cur.fetchall()
+#         conn.commit()
 
 @app.route('/whatsMyIP')
 def whatsMyIP():
-    if action == 'login':
+    # if action == 'login':
+    if action == request.args.get('login_action'):
         cur.execute("INSERT into user_table (user_name, password, email, ip_address) values (%s, %s, %s, %s)", (user_name, password, email, ip_address))
         conn.commit()
         cur.execute("SELECT * FROM user_table")
@@ -193,8 +194,6 @@ def whatsMyIP():
         return result
     print(request.remote_addr)
     return request.remote_addr
-
-
 
 @app.route('/hello', methods=['GET'])
 def say_hello():
