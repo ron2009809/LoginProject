@@ -6,10 +6,10 @@ import psycopg2
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 
-DB_NAME = "loginprojectdatabase"
-DB_USER = "loginprojectdatabase_user"
-DB_PASS = "e7NF4LpzjGUbA3u5aURvb3GEU2jz727P"
-DB_HOST = "dpg-cvovtik9c44c73bs0ucg-a"
+DB_NAME = "loginprojectdatabase_px4j"
+DB_USER = "loginprojectdatabase_px4j_user"
+DB_PASS = "C3YNL7aadsJALWHte1uJkSQ6L7havJe4"
+DB_HOST = "dpg-d0g200k9c44c73d5jb70-a"
 DB_PORT = "5432"
 
 try:
