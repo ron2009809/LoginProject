@@ -195,9 +195,13 @@ def whatsMyIP():
     print(request.remote_addr)
     return request.remote_addr
 
+# @app.route('/hello', methods=['GET'])
+# def say_hello():
+#     return render_template('HorizonHomePage.html')
 @app.route('/hello', methods=['GET'])
 def say_hello():
-    return render_template('HorizonHomePage.html')
+    users = [{'id':1, 'username':'user1'}, {'id':2, 'username':'user2'}]
+    return jsonify({'users': users})
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
