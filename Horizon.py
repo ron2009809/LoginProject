@@ -34,7 +34,7 @@ except psycopg2.Error as e:
     print("Error details:", e)
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = "roncui2009809@gmail.com"
