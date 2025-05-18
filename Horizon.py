@@ -92,6 +92,11 @@ def checkUsernameExistOrNot():
     # ip_address = whatsMyIP()
     # print(ip_address)
     action = request.args.get('forgot_password_action')
+    if request.method == 'GET':
+        if request.method == 'POST':
+            query = request.form['query']
+            response = MyService.retrieve_response(query)
+            return render_template("index.html", value=response)
     if action == 'Forgot_Password?':
         return render_template('forgotpassword.html')
     cur.execute("SELECT * FROM user_table WHERE user_name = %s", (username,))
@@ -200,8 +205,8 @@ def whatsMyIP():
 #     return render_template('HorizonHomePage.html')
 @app.route('/hello', methods=['GET'])
 def say_hello():
-    users = [{'id':1, 'username':'user1'}, {'id':2, 'username':'user2'}]
-    return jsonify({'users': users})
+    dic = {"name": "Ron"}
+    return jsonify(dic)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
