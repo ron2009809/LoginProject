@@ -81,9 +81,11 @@ def code_verified_unsuccessfully():
 def verify_password_unsuccessfully():
     return render_template('codeverifiedsuccessfully.html')
 # //
-@app.route('/')
+@app.route('/', methods=['POST'])
 def loginPage():
-    return render_template('HorizonHomePage.html')
+    loginRequest = request.get_json()
+    print(loginRequest)
+    return loginRequest
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
