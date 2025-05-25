@@ -208,6 +208,14 @@ def say_hello():
     dic = {"name": "Ron"}
     return jsonify(dic)
 
+@app.route('/greet/<name>', methods=['GET'])
+def greet(name):
+    return jsonify({"greeting": f"Hello, {name}!"})
+
+@app.route('/items', methods=['GET'])
+def items():
+    return jsonify({"items": ["apple", "banana", "cherry"]})
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port = port)
