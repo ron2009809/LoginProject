@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form action="/checkUsernameExistOrNot" method="GET" onsubmit="storeUsername(event)">
+    <form action="/checkUsernameExistOrNot" method="POST" onsubmit="storeUsername(event)">
         <label for="user_input_username">Username: (try with your own name)</label>
         <input type="text" id="user_input_username" name="username_for_python" required>
         <br><br>
