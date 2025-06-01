@@ -89,18 +89,23 @@ def loginPage():
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
-    username = request.args.get('username_for_python')
-    password = request.args.get('password_for_python')
-    # ip_address = whatsMyIP()
-    # print(ip_address)
-    action = request.args.get('forgot_password_action')
-    if request.method == 'GET':
-        if request.method == 'POST':
-            query = request.form['query']
-            response = MyService.retrieve_response(query)
-            return render_template("index.html", value=response)
+    checkUserNameExistence = request.get_json()
+    # username = request.args.get('username_for_python')
+    # password = request.args.get('password_for_python')
+    username = checkUserNameExistence.get('username_for_python')
+    password = checkUserNameExistence.get('password_for_python')
+    action = checkUserNameExistence.get('forgot_password_action')
+
+    # action = request.args.get('forgot_password_action')
+
+    # if request.method == 'GET':
+    #     if request.method == 'POST':
+    #         query = request.form['query']
+    #         response = MyService.retrieve_response(query)
+    #         return render_template("index.html", value=response)
     if action == 'Forgot_Password?':
-        return render_template('forgotpassword.html')
+        # return render_template('forgotpassword.html')
+        return jsonify({"status": "forgot_password_request"})
     cur.execute("SELECT * FROM user_table WHERE user_name = %s", (username,))
     result = cur.fetchall()
     conn.commit()
@@ -112,14 +117,18 @@ def checkUsernameExistOrNot():
             posts_info = cur.fetchall()
             cur.execute("SELECT ip_address FROM user_table WHERE user_name = %s", (username,))
             ip_address = cur.fetchone()
-            return render_template('HorizonSuccessfullyLoginPage.html', posts = posts_info, ip_address = ip_address)
+            # return render_template('HorizonSuccessfullyLoginPage.html', posts = posts_info, ip_address = ip_address)
+            return jsonify({"status": "success", "posts": posts_info, "ip_address": ip_address}), 200
         else:
-            return render_template('reenterpasswordloginpage.html')
+            # return render_template('reenterpasswordloginpage.html')
+            return jsonify({"status": "error", "message": "Wrong Password!"}), 401
     else:
-        return render_template('checkUsernameExistOrNot.html')
+        # return render_template('checkUsernameExistOrNot.html')
+        return jsonify({"status": "error", "message": "Username does not exist"}), 404
 
 @app.route('/signUp')
 def signUp():
+    signUpRequest = request.get_json()
     action = request.args.get('user_action')
     if action == 'tryAgain':
         return render_template('loginpage.html')
