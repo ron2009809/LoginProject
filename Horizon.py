@@ -81,11 +81,22 @@ def code_verified_unsuccessfully():
 def verify_password_unsuccessfully():
     return render_template('codeverifiedsuccessfully.html')
 # //
+
+users = {
+    "testuser": "testpassword1234"
+}
 @app.route('/', methods=['POST'])
 def loginPage():
     loginRequest = request.get_json()
-    print(loginRequest)
-    return loginRequest
+    data = request.get_json()
+    username = request.get_json('username')
+    password = request.get_json('password')
+    if username in users and users[username] == password:
+        return jsonify({"status": "success", "message": "Login Successfully!"})
+    else:
+        return jsonify({"status": "fail", "message": "Failed to Login"})
+    # print(loginRequest)
+    # return loginRequest
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
@@ -129,15 +140,18 @@ def checkUsernameExistOrNot():
 @app.route('/signUp')
 def signUp():
     signUpRequest = request.get_json()
-    action = request.args.get('user_action')
+    action = signUpRequest.get('user_action')
     if action == 'tryAgain':
-        return render_template('loginpage.html')
+        # return render_template('loginpage.html')
+        return jsonify({"status": "fail", "message": "Try Again"})
     else:
-        return render_template('signuppage.html')
+        # return render_template('signuppage.html')
+        return jsonify({"status": "success", "message": "Sign Up Success"})
 
 @app.route('/PasswordConfirm')
 def PasswordConfirm():
-    username = request.args.get('signUp_username_for_python')
+    PasswordConfirmRequest = request.get_json()
+    username = PasswordConfirmRequest.get('signUp_username_for_python')
     cur.execute("SELECT user_name from user_table")
     database_usernames = cur.fetchall()
     print(database_usernames)
