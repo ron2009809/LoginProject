@@ -81,22 +81,11 @@ def code_verified_unsuccessfully():
 def verify_password_unsuccessfully():
     return render_template('codeverifiedsuccessfully.html')
 # //
-
-users = {
-    "testuser": "testpassword1234"
-}
 @app.route('/', methods=['POST'])
 def loginPage():
     loginRequest = request.get_json()
-    data = request.get_json()
-    username = request.get_json('username')
-    password = request.get_json('password')
-    if username in users and users[username] == password:
-        return jsonify({"status": "success", "message": "Login Successfully!"})
-    else:
-        return jsonify({"status": "fail", "message": "Failed to Login"})
-    # print(loginRequest)
-    # return loginRequest
+    print(loginRequest)
+    return loginRequest
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
