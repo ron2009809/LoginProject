@@ -230,6 +230,13 @@ def greet(name):
 def items():
     return jsonify({"items": ["apple", "banana", "cherry"]})
 
+@app.route('/upload', methods=['POST'])
+def upload():
+    uploadText = request.get_json()
+    if (uploadText['test'] == 'upload testing'):
+        return jsonify({'message': 'successful'}), 200
+
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port = port)
