@@ -236,6 +236,11 @@ def upload():
     if (uploadText['test'] == 'upload testing'):
         return jsonify({'message': 'successful'}), 200
 
+@app.route('/testFunction', methods=['GET'])
+def testFunction():
+    text = {'text': 'hello'}
+    return jsonify(text)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
