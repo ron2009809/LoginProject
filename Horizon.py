@@ -240,11 +240,11 @@ def upload():
 def testFunction():
     text = {'text': 'hello'}
     return jsonify(text)
-@app.route('/testFucntion1', methods=['POST'])
+@app.route('/testFunction1', methods=['POST'])
 def testFunction1():
     text = {'text': 'test function 1'}
     return jsonify(text)
-@app.route('/testFucntion2', methods=['PUT'])
+@app.route('/testFunction2', methods=['PUT'])
 def testFunction2():
     text = {'text': 'test function 2'}
     return jsonify(text)
