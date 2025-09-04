@@ -84,8 +84,12 @@ def verify_password_unsuccessfully():
 @app.route('/', methods=['POST'])
 def loginPage():
     loginRequest = request.get_json()
-    print(loginRequest)
-    return loginRequest
+    cur.execute("SELECT password from user_table where user_name = '%s'", (loginRequest['username']))
+    password = cur.fetchone()
+    if (loginRequest['password'] == password):
+        return loginRequest
+    else:
+        return "Username or Password wrong, please try again"
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
@@ -240,7 +244,7 @@ def upload():
 def testFunction():
     cur.execute("SELECT password from user_table where user_name = 'Ron'")
     password = cur.fetchone()
-    text = {'password': password}
+    text = {'password': password[0]}
     return jsonify(text)
 @app.route('/testFunction1', methods=['POST'])
 def testFunction1():
