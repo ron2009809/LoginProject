@@ -6,10 +6,10 @@ import psycopg2
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 
-DB_NAME = "loginprojectdatabase_px4j"
-DB_USER = "loginprojectdatabase_px4j_user"
-DB_PASS = "C3YNL7aadsJALWHte1uJkSQ6L7havJe4"
-DB_HOST = "dpg-d0g200k9c44c73d5jb70-a"
+DB_NAME = "user_information_zw0e"
+DB_USER = "user_information_zw0e_user"
+DB_PASS = "i2d9i7mAtCWsEkUbSPMH4AP4776fIx8W"
+DB_HOST = "dpg-d2soo5mmcj7s73ae3m6g-a"
 DB_PORT = "5432"
 
 try:
@@ -238,7 +238,9 @@ def upload():
 
 @app.route('/testFunction', methods=['GET'])
 def testFunction():
-    text = {'text': 'hello'}
+    cur.execute("SELECT password from user_table where user_name = 'Ron'")
+    password = cur.fetchone()
+    text = {'password': password}
     return jsonify(text)
 @app.route('/testFunction1', methods=['POST'])
 def testFunction1():
