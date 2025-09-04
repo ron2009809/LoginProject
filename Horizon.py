@@ -87,9 +87,9 @@ def loginPage():
     cur.execute("SELECT password from user_table where user_name = %s", (loginRequest['username'],))
     password = cur.fetchone()
     if (loginRequest['password'] == password):
-        return loginRequest
+        return jsonify({'message': 'login successful'}), 200
     else:
-        return "Username or Password wrong, please try again"
+        return jsonify({'message': 'Username or Password wrong, please try again'}), 401
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
