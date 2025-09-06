@@ -86,6 +86,7 @@ def loginPage():
     loginRequest = request.get_json()
     cur.execute("SELECT password from user_table where user_name = %s", (loginRequest['username'],))
     password = cur.fetchone()
+    print(password)
     if (loginRequest['password'] == password):
         return jsonify({'message': 'login successful'}), 200
     else:
