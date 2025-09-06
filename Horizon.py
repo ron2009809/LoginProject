@@ -84,11 +84,11 @@ def verify_password_unsuccessfully():
 @app.route('/', methods=['POST'])
 def loginPage():
     loginRequest = request.get_json()
-    cur.execute("SELECT password from user_table where user_name = %s", (loginRequest['username'],))
+    cur.execute("SELECT user_name, password from user_table where user_name = %s", (loginRequest['username'],))
     password = cur.fetchone()
-    print(password)
+    user_name = cur.fetchone()
     if (loginRequest['password'] == password[0]):
-        return jsonify({'message': 'login successful'}), 200
+        return jsonify({'username': user_name, 'password': password}), 200
     else:
         return jsonify({'message': 'Username or Password wrong, please try again'}), 401
 
