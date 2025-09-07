@@ -251,10 +251,16 @@ def testFunction():
 def testFunction1():
     text = {'text': 'test function 1'}
     return jsonify(text)
-@app.route('/testFunction2', methods=['PUT'])
-def testFunction2():
-    text = {'text': 'test function 2'}
+@app.route('/GetUserInformationButton', methods=['GET'])
+def GetUserInformationButton():
+    text = {'text': 'successful'}, 200
     return jsonify(text)
+
+@app.route('/GetUserInformationFunction', methods=['GET'])
+def GetUserInformationFunction():
+    cur.execute("SELECT * FROM user_table")
+    result = cur.fetchall()
+    return jsonify(result)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
