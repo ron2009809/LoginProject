@@ -45,6 +45,9 @@ mail = Mail(app)
 
 verification_code_sent_by_email = str(random.randint(100000, 999999))
 
+folder = 'SavedImage'
+os.makedirs(folder , exist_ok=True)
+
 @app.route("/send_email")
 def index():
     mail_message = Message(
@@ -236,21 +239,33 @@ def items():
     return jsonify({"items": ["apple", "banana", "cherry"]})
 
 @app.route('/upload', methods=['POST'])
+# choose which file to save
+# choose a path to save the image, choose a filename
+# save
 def upload():
-    uploadText = request.get_json()
-    if (uploadText['test'] == 'upload testing'):
-        return jsonify({'message': 'successful'}), 200
+    image = request.files['image']
+    filePath = os.path.join(folder,image.filename)
+    image.save(filePath)
+    return jsonify({'message': 'upload image successful', 'filename': image.filename, 'filePath': filePath}), 200
 
-@app.route('/testFunction', methods=['GET'])
-def testFunction():
-    cur.execute("SELECT password from user_table where user_name = 'Ron'")
-    password = cur.fetchone()
-    text = {'password': password[0]}
-    return jsonify(text)
-@app.route('/testFunction1', methods=['POST'])
-def testFunction1():
-    text = {'text': 'test function 1'}
-    return jsonify(text)
+
+
+
+
+
+
+
+
+# @app.route('/testFunction', methods=['GET'])
+# def testFunction():
+#     cur.execute("SELECT password from user_table where user_name = 'Ron'")
+#     password = cur.fetchone()
+#     text = {'password': password[0]}
+#     return jsonify(text)
+# @app.route('/testFunction1', methods=['POST'])
+# def testFunction1():
+#     text = {'text': 'test function 1'}
+#     return jsonify(text)
 @app.route('/GetUserInformationButton', methods=['GET'])
 def GetUserInformationButton():
     text = {'text': 'successful'}, 200
