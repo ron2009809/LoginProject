@@ -246,7 +246,8 @@ def upload():
     image = request.files['image']
     filePath = os.path.join(folder,image.filename)
     image.save(filePath)
-    return jsonify({'message': 'upload image successful', 'filename': image.filename, 'filePath': filePath}), 200
+    file_url = f"/SavedImage/{image.filename}"
+    return jsonify({'message': 'upload image successful', 'filename': image.filename, 'filePath': filePath, 'url': file_url}), 200
 
 
 
