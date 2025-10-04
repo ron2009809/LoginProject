@@ -254,7 +254,7 @@ API_LEY = 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent'
 @app.route('/generateAIResponse', methods=['POST'])
 def generateAIResponse():
-    user_request = request.json()
+    user_request = request.get_json()
     headers = {'Content-type': 'application/json'}
     API = {'key': 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'}
     gemini_response = request.post(GEMINI_URL, headers=headers, API=API, json=user_request)
@@ -278,3 +278,4 @@ def GetUserInformationFunction():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port = port)
+
