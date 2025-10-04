@@ -252,14 +252,14 @@ def upload():
     return jsonify({'message': 'upload image successful', 'filename': image.filename, 'filePath': filePath, 'url': file_url}), 200
 
 
-API_LEY = 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'
+API_KEY = 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent'
 @app.route('/generateAIResponse', methods=['POST'])
 def generateAIResponse():
     user_request = request.get_json()
     headers = {'Content-type': 'application/json'}
     API = {'key': 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'}
-    gemini_response = requests.post(GEMINI_URL, headers=headers, API=API, json=user_request)
+    gemini_response = requests.post(GEMINI_URL, headers=headers, params=API, json=user_request)
 
     if (gemini_response.statusCode == 200):
         return jsonify({'message': gemini_response.json()}), 200
