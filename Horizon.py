@@ -250,23 +250,20 @@ def upload():
     return jsonify({'message': 'upload image successful', 'filename': image.filename, 'filePath': filePath, 'url': file_url}), 200
 
 
+API_LEY = 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'
+GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent'
+@app.route('/generateAIResponse', methods=['POST'])
+def generateAIResponse():
+    user_request = request.json()
+    headers = {'Content-type': 'application/json'}
+    API = {'key': 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'}
+    gemini_response = request.post(GEMINI_URL, headers=headers, API=API, json=user_request)
 
+    if (gemini_response.statusCode == 200):
+        return jsonify({'message': gemini_response.json()}), 200
+    else:
+        return jsonify({'error': 'failed'})
 
-
-
-
-
-
-# @app.route('/testFunction', methods=['GET'])
-# def testFunction():
-#     cur.execute("SELECT password from user_table where user_name = 'Ron'")
-#     password = cur.fetchone()
-#     text = {'password': password[0]}
-#     return jsonify(text)
-# @app.route('/testFunction1', methods=['POST'])
-# def testFunction1():
-#     text = {'text': 'test function 1'}
-#     return jsonify(text)
 @app.route('/GetUserInformationButton', methods=['GET'])
 def GetUserInformationButton():
     text = {'text': 'successful'}, 200
