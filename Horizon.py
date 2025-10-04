@@ -261,7 +261,7 @@ def generateAIResponse():
     API = {'key': 'AIzaSyAnNYld-dL_v64toeUX5z-IM0htLgj4GqE'}
     gemini_response = requests.post(GEMINI_URL, headers=headers, params=API, json=user_request)
 
-    if (gemini_response.statusCode == 200):
+    if (gemini_response.status_code == 200):
         return jsonify({'message': gemini_response.json()}), 200
     else:
         return jsonify({'error': 'failed'})
