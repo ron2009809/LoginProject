@@ -277,6 +277,26 @@ def GetUserInformationFunction():
     result = cur.fetchall()
     return jsonify(result)
 
+@app.route('/sendRequestForSignInWithGoogle', methods=['GET'])
+def SendRequestForSignInWithGoogle():
+    text = {'text': 'Login successful'}, 200
+    return jsonify(text)
+
+@app.route('/sendRequestForSignInWithGithub', methods=['GET'])
+def SendRequestForSignInWithGithub():
+    text = {'text': 'Login successful'}, 200
+    return jsonify(text)
+
+@app.route('/sendRequestForSignInWithTwitter', methods=['GET'])
+def SendRequestForSignInWithTwitter():
+    text = {'text': 'Login successful'}, 200
+    return jsonify(text)
+
+@app.route('/sendRequestForSignInWithYahoo', methods=['GET'])
+def SendRequestForSignInWithYahoo():
+    text = {'text': 'Login successful'}, 200
+    return jsonify(text)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port = port)
