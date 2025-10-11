@@ -11,7 +11,7 @@ from flask_mail import Mail, Message
 DB_NAME = "user_information_zw0e"
 DB_USER = "user_information_zw0e_user"
 DB_PASS = "i2d9i7mAtCWsEkUbSPMH4AP4776fIx8W"
-DB_HOST = "dpg-d2soo5mmcj7s73ae3m6g-a"
+DB_HOST = "dpg-d3gtnanfte5s73cf3im0-a"
 DB_PORT = "5432"
 
 try:
