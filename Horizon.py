@@ -280,21 +280,29 @@ def GetUserInformationFunction():
 @app.route('/sendRequestForSignInWithGoogle', methods=['GET'])
 def SendRequestForSignInWithGoogle():
     text = {'text': 'Login successful'}, 200
+    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)")
+    conn.commit()
     return jsonify(text)
 
 @app.route('/sendRequestForSignInWithGithub', methods=['GET'])
 def SendRequestForSignInWithGithub():
     text = {'text': 'Login successful'}, 200
+    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)")
+    conn.commit()
     return jsonify(text)
 
 @app.route('/sendRequestForSignInWithTwitter', methods=['GET'])
 def SendRequestForSignInWithTwitter():
     text = {'text': 'Login successful'}, 200
+    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)")
+    conn.commit()
     return jsonify(text)
 
 @app.route('/sendRequestForSignInWithYahoo', methods=['GET'])
 def SendRequestForSignInWithYahoo():
     text = {'text': 'Login successful'}, 200
+    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)")
+    conn.commit()
     return jsonify(text)
 
 if __name__ == '__main__':
