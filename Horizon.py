@@ -280,12 +280,12 @@ def GetUserInformationFunction():
 @app.route('/sendRequestForSignInWithGoogle', methods=['POST'])
 def SendRequestForSignInWithGoogle():
     user_info_json = request.get_json()
-    user_name = request.args.get('user_name')
-    email = request.args.get('email')
-    metadata = request.args.get('metadata')
-    phone_number = request.args.get('phone_number')
-    photo_url = request.args.get('photo_url')
-    provider_data = request.args.get('provider_data')
+    user_name = user_info_json['user_name']
+    email = user_info_json['email']
+    metadata = user_info_json['metadata']
+    phone_number = user_info_json['phone_number']
+    photo_url = user_info_json['photo_url']
+    provider_data = user_info_json['provider_data']
     print(user_name)
     text = {'text': 'Login successful'}, 200
     cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
