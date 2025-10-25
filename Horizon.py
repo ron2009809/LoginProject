@@ -286,7 +286,6 @@ def SendRequestForSignInWithGoogle():
     phone_number = user_info_json['phone_number']
     photo_url = user_info_json['photo_url']
     provider_data = user_info_json['provider_data']
-    print(user_name)
     text = {'text': 'Login successful'}, 200
     cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
                 ,(user_name, email, metadata, phone_number, photo_url, provider_data))
@@ -295,42 +294,48 @@ def SendRequestForSignInWithGoogle():
 
 @app.route('/sendRequestForSignInWithGithub', methods=['POST'])
 def SendRequestForSignInWithGithub():
-    user_name = request.args.get('')
-    email = request.args.get('')
-    metadata = request.args.get('')
-    phone_number = request.args.get('')
-    photo_url = request.args.get('')
-    provider_data = request.args.get('')
+    user_info_json = request.get_json()
+    user_name = user_info_json['user_name']
+    email = user_info_json['email']
+    metadata = user_info_json['metadata']
+    phone_number = user_info_json['phone_number']
+    photo_url = user_info_json['photo_url']
+    provider_data = user_info_json['provider_data']
     text = {'text': 'Login successful'}, 200
-    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
+    cur.execute(
+        "INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
         , (user_name, email, metadata, phone_number, photo_url, provider_data))
     conn.commit()
     return jsonify(text)
 
 @app.route('/sendRequestForSignInWithTwitter', methods=['GET'])
 def SendRequestForSignInWithTwitter():
-    user_name = request.args.get('')
-    email = request.args.get('')
-    metadata = request.args.get('')
-    phone_number = request.args.get('')
-    photo_url = request.args.get('')
-    provider_data = request.args.get('')
+    user_info_json = request.get_json()
+    user_name = user_info_json['user_name']
+    email = user_info_json['email']
+    metadata = user_info_json['metadata']
+    phone_number = user_info_json['phone_number']
+    photo_url = user_info_json['photo_url']
+    provider_data = user_info_json['provider_data']
     text = {'text': 'Login successful'}, 200
-    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
+    cur.execute(
+        "INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
         , (user_name, email, metadata, phone_number, photo_url, provider_data))
     conn.commit()
     return jsonify(text)
 
 @app.route('/sendRequestForSignInWithYahoo', methods=['GET'])
 def SendRequestForSignInWithYahoo():
-    user_name = request.args.get('')
-    email = request.args.get('')
-    metadata = request.args.get('')
-    phone_number = request.args.get('')
-    photo_url = request.args.get('')
-    provider_data = request.args.get('')
+    user_info_json = request.get_json()
+    user_name = user_info_json['user_name']
+    email = user_info_json['email']
+    metadata = user_info_json['metadata']
+    phone_number = user_info_json['phone_number']
+    photo_url = user_info_json['photo_url']
+    provider_data = user_info_json['provider_data']
     text = {'text': 'Login successful'}, 200
-    cur.execute("INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
+    cur.execute(
+        "INSERT into user_table (user_name, email, metadata, phone_number, photo_url, provider_data) values (%s, %s, %s, %s, %s, %s)"
         , (user_name, email, metadata, phone_number, photo_url, provider_data))
     conn.commit()
     return jsonify(text)
