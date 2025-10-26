@@ -14,6 +14,8 @@ DB_PASS = "tW53TZRNoFUZEaaSdiOE8n4KSx8Rc9lH"
 DB_HOST = "dpg-d3gtnanfte5s73cf3im0-a"
 DB_PORT = "5432"
 
+Server_API_KEY = '123456'
+
 try:
     conn = psycopg2.connect(database=DB_NAME,
                             user=DB_USER,
@@ -345,7 +347,9 @@ def check_api_key():
     if request.endpoint == 'health':
         return
     key = request.headers.get("x-api-key")
-    if key != API_KEY:
+    print(key)
+    print(Server_API_KEY)
+    if key != Server_API_KEY:
         return jsonify({"error": "Unauthorized"}), 401
 
 if __name__ == '__main__':
