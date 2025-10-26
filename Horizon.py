@@ -58,11 +58,16 @@ os.makedirs(folder , exist_ok=True)
 
 @app.before_request
 def check_api_key():
-    app.logger.info("Before request triggered")
+    app.logger.warning("Before request triggered")
+    print("Before request triggered")
     key = request.headers.get("x-api-key")
-    app.logger.info(f"Received API key: {key}")
+    app.logger.warning(f"Received API key: {key}")
+    print(f"Received API key: {key}")
+    app.logger.warning(f"Server API key: {Server_API_KEY}")
+    print(f"Server API key: {Server_API_KEY}")
     if key != Server_API_KEY:
         app.logger.warning("Unauthorized access attempt")
+        print("Unauthorized access attempt")
         return jsonify({"error": "Unauthorized"}), 401
 
 @app.route("/send_email")
