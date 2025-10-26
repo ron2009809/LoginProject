@@ -340,6 +340,14 @@ def SendRequestForSignInWithYahoo():
     conn.commit()
     return jsonify(text)
 
+@app.before_request
+def check_api_key():
+    if request.endpoint == 'health':
+        return
+    key = request.headers.get("x-api-key")
+    if key != API_KEY:
+        return jsonify({"error": "Unauthorized"}), 401
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port = port)
