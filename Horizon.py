@@ -54,6 +54,7 @@ os.makedirs(folder , exist_ok=True)
 
 @app.before_request
 def check_api_key():
+    print('Testing Print')
     if request.endpoint == 'health':
         return
     key = request.headers.get("x-api-key")
