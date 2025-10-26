@@ -52,6 +52,17 @@ verification_code_sent_by_email = str(random.randint(100000, 999999))
 folder = 'SavedImage'
 os.makedirs(folder , exist_ok=True)
 
+@app.before_request
+def check_api_key():
+    if request.endpoint == 'health':
+        return
+    key = request.headers.get("x-api-key")
+    print(key)
+    print(Server_API_KEY)
+    if key != Server_API_KEY:
+        print(key)
+        print(Server_API_KEY)
+        return jsonify({"error": "Unauthorized"}), 401
 @app.route("/send_email")
 def index():
     mail_message = Message(
@@ -341,16 +352,6 @@ def SendRequestForSignInWithYahoo():
         , (user_name, email, metadata, phone_number, photo_url, provider_data))
     conn.commit()
     return jsonify(text)
-
-@app.before_request
-def check_api_key():
-    if request.endpoint == 'health':
-        return
-    key = request.headers.get("x-api-key")
-    print(key)
-    print(Server_API_KEY)
-    if key != Server_API_KEY:
-        return jsonify({"error": "Unauthorized"}), 401
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
