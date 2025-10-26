@@ -52,18 +52,18 @@ verification_code_sent_by_email = str(random.randint(100000, 999999))
 folder = 'SavedImage'
 os.makedirs(folder , exist_ok=True)
 
-# @app.before_request
-# def check_api_key():
-#     print('Testing Print')
-#     if request.endpoint == 'health':
-#         return
-#     key = request.headers.get("x-api-key")
-#     print(key)
-#     print(Server_API_KEY)
-#     if key != Server_API_KEY:
-#         print(key)
-#         print(Server_API_KEY)
-#         return jsonify({"error": "Unauthorized"}), 401
+@app.before_request
+def check_api_key():
+    print('Testing Print')
+    if request.endpoint == 'health':
+        return
+    key = request.headers.get("x-api-key")
+    print(key)
+    print(Server_API_KEY)
+    if key != Server_API_KEY:
+        print(key)
+        print(Server_API_KEY)
+        return jsonify({"error": "Unauthorized"}), 401
 
 @app.route("/send_email")
 def index():
