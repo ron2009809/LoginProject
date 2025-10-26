@@ -63,6 +63,7 @@ def check_api_key():
         print(key)
         print(Server_API_KEY)
         return jsonify({"error": "Unauthorized"}), 401
+
 @app.route("/send_email")
 def index():
     mail_message = Message(
