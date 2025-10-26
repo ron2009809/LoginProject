@@ -1,3 +1,5 @@
+import sys
+
 import os
 import random
 
@@ -7,6 +9,8 @@ from flask_cors import CORS
 import psycopg2
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
+
+sys.stdout.reconfigure(line_buffering=True)
 
 DB_NAME = "user_information_1"
 DB_USER = "user_information_1_user"
@@ -54,15 +58,11 @@ os.makedirs(folder , exist_ok=True)
 
 @app.before_request
 def check_api_key():
-    print('Testing Print')
-    if request.endpoint == 'health':
-        return
+    app.logger.info("Before request triggered")
     key = request.headers.get("x-api-key")
-    print(key)
-    print(Server_API_KEY)
+    app.logger.info(f"Received API key: {key}")
     if key != Server_API_KEY:
-        print(key)
-        print(Server_API_KEY)
+        app.logger.warning("Unauthorized access attempt")
         return jsonify({"error": "Unauthorized"}), 401
 
 @app.route("/send_email")
