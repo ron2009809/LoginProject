@@ -3,7 +3,6 @@ import sys
 import os
 import random
 
-import app as app
 import requests
 from flask_cors import CORS
 
