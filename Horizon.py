@@ -367,7 +367,7 @@ def SendRequestForSignInWithYahoo():
     conn.commit()
     return jsonify(text)
 
-@app.route('https://loginproject-dy2q.onrender.com/OpenChatWithAI', methods=['POST'])
+@app.route('/OpenChatWithAI', methods=['POST'])
 def OpenChatWithAI():
     user_request = request.get_json()
     return jsonify(user_request)
