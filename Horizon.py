@@ -10,7 +10,7 @@ import psycopg2
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 
-from flask_cors import CORS
+from flask_cors import CORS # Cross-Origin Resource Sharing ---> allow requests from different origins
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -65,16 +65,16 @@ os.makedirs(folder , exist_ok=True)
 def check_api_key():
     if request.method == "OPTIONS":
         return '', 200
-    print("HEADERS RECEIVED:", dict(request.headers))
-    print("\n=== HEADERS RECEIVED ===")
+    # print("HEADERS RECEIVED:", dict(request.headers))
+    # print("\n=== HEADERS RECEIVED ===")
     for k, v in request.headers.items():
         print(f"{k}: {v}")
-    print("========================\n")
+    # print("========================\n")
     key = request.headers.get("x-api-key")
-    print(f"Received API key: {key}")
-    print(f"Server API key: {Server_API_KEY}")
+    # print(f"Received API key: {key}")
+    # print(f"Server API key: {Server_API_KEY}")
     if key != Server_API_KEY:
-        print("Unauthorized access attempt")
+        # print("Unauthorized access attempt")
         return jsonify({"error": "Unauthorized"}), 401
 
 @app.route("/send_email")
@@ -366,6 +366,11 @@ def SendRequestForSignInWithYahoo():
         , (user_name, email, metadata, phone_number, photo_url, provider_data))
     conn.commit()
     return jsonify(text)
+
+@app.route('https://loginproject-dy2q.onrender.com/OpenChatWithAI', methods=['POST'])
+def OpenChatWithAI():
+    user_request = request.get_json()
+    return jsonify(user_request)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
