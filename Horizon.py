@@ -3,12 +3,16 @@ import sys
 import os
 import random
 
+import app as app
 import requests
 from flask_cors import CORS
 
 import psycopg2
 from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
+
+from flask_cors import CORS
+CORS(app, supports_credentials=True, allow_headers=["Content-Type", "x-api-key"])
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -60,6 +64,9 @@ os.makedirs(folder , exist_ok=True)
 # continue from here
 @app.before_request
 def check_api_key():
+    if request.method == "OPTIONS":
+        return '', 200
+    print("HEADERS RECEIVED:", dict(request.headers))
     print("\n=== HEADERS RECEIVED ===")
     for k, v in request.headers.items():
         print(f"{k}: {v}")
