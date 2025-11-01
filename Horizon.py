@@ -56,17 +56,18 @@ verification_code_sent_by_email = str(random.randint(100000, 999999))
 folder = 'SavedImage'
 os.makedirs(folder , exist_ok=True)
 
+
+# continue from here
 @app.before_request
 def check_api_key():
-    app.logger.warning("Before request triggered")
-    print("Before request triggered")
+    print("\n=== HEADERS RECEIVED ===")
+    for k, v in request.headers.items():
+        print(f"{k}: {v}")
+    print("========================\n")
     key = request.headers.get("x-api-key")
-    app.logger.warning(f"Received API key: {key}")
     print(f"Received API key: {key}")
-    app.logger.warning(f"Server API key: {Server_API_KEY}")
     print(f"Server API key: {Server_API_KEY}")
     if key != Server_API_KEY:
-        app.logger.warning("Unauthorized access attempt")
         print("Unauthorized access attempt")
         return jsonify({"error": "Unauthorized"}), 401
 
