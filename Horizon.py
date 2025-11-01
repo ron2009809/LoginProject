@@ -12,7 +12,6 @@ from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 
 from flask_cors import CORS
-CORS(app, supports_credentials=True, allow_headers=["Content-Type", "x-api-key"])
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -46,6 +45,7 @@ except psycopg2.Error as e:
     print("Error details:", e)
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True, allow_headers=["Content-Type", "x-api-key"])
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 465
