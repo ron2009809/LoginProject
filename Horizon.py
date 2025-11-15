@@ -369,8 +369,7 @@ def SendRequestForSignInWithYahoo():
 
 @app.route('/OpenChatWithAI', methods=['POST'])
 def OpenChatWithAI():
-    OpenChatWithAI = request.get_json()
-    return jsonify(OpenChatWithAI)
+    return jsonify({"status": "success", "message": "chat started"})
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
