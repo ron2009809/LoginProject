@@ -130,7 +130,7 @@ def loginPage():
     #     return jsonify({'username': user_name, 'password': password}), 200
     # else:
     #     return jsonify({'message': 'Username or Password wrong, please try again'}), 401
-    return "inside login page function"
+    return jsonify({'username': 'ron', 'password': '1234'})
 
 @app.route('/checkUsernameExistOrNot')
 def checkUsernameExistOrNot():
