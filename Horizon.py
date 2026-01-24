@@ -115,6 +115,7 @@ def verify_password_unsuccessfully():
 # //
 @app.route('/', methods=['POST'])
 def loginPage():
+    print("test login fuction")
     loginRequest = request.get_json()
     cur.execute("SELECT user_name, password from user_table where user_name = %s", (loginRequest['username'],))
     password = cur.fetchone()
