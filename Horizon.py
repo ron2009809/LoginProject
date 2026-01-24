@@ -14,10 +14,10 @@ from flask_cors import CORS # Cross-Origin Resource Sharing ---> allow requests 
 
 sys.stdout.reconfigure(line_buffering=True)
 
-DB_NAME = "user_information_1_yham"
-DB_USER = "user_information_1_yham_user"
-DB_PASS = "88kQEfD5RyHsgGxico75E9CiWx59yaG3"
-DB_HOST = "dpg-d480niur433s739p78fg-a"
+DB_NAME = "LoginProjectUserDatabase"
+DB_USER = "uloginprojectuserdatabase_user"
+DB_PASS = "URKHfgi4OX0YMCnOIpxjm0wVvgS25eIA"
+DB_HOST = "dpg-d5q31u9r0fns73d8pi8g-a"
 DB_PORT = "5432"
 
 Server_API_KEY = '123456'
