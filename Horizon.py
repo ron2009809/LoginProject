@@ -14,8 +14,8 @@ from flask_cors import CORS # Cross-Origin Resource Sharing ---> allow requests 
 
 sys.stdout.reconfigure(line_buffering=True)
 
-DB_NAME = "LoginProjectUserDatabase"
-DB_USER = "uloginprojectuserdatabase_user"
+DB_NAME = "loginprojectuserdatabase"
+DB_USER = "loginprojectuserdatabase_user"
 DB_PASS = "URKHfgi4OX0YMCnOIpxjm0wVvgS25eIA"
 DB_HOST = "dpg-d5q31u9r0fns73d8pi8g-a"
 DB_PORT = "5432"
