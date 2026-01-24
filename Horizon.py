@@ -118,10 +118,14 @@ print("**************************")
 @app.route('/', methods=['POST'])
 def loginPage():
     print("test login fuction")
+    print(request)
     loginRequest = request.get_json()
+    print((loginRequest))
     cur.execute("SELECT user_name, password from user_table where user_name = %s", (loginRequest['username'],))
     password = cur.fetchone()
+    print(password)
     user_name = cur.fetchone()
+    print(user_name)
     if (loginRequest['password'] == password[1]):
         return jsonify({'username': user_name, 'password': password}), 200
     else:
