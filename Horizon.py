@@ -113,6 +113,8 @@ def code_verified_unsuccessfully():
 def verify_password_unsuccessfully():
     return render_template('codeverifiedsuccessfully.html')
 # //
+
+print("**************************")
 @app.route('/', methods=['POST'])
 def loginPage():
     print("test login fuction")
